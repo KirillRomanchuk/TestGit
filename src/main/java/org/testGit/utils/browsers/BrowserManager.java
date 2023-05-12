@@ -22,8 +22,8 @@ public class BrowserManager {
         String browserName = Config.browser();
         if (browserName.equalsIgnoreCase("Chrome")) {
             browser = new ChromeBrowser();
-        } else if (browserName.equalsIgnoreCase("Firefox")) {
-            browser = new FireFoxBrowser();
+//        } else if (browserName.equalsIgnoreCase("Firefox")) {
+//            browser = new FireFoxBrowser(); //TO DO does not work
         } else {
             browser = new ChromeBrowser();
         }
