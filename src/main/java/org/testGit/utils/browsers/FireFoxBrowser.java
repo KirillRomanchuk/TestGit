@@ -13,7 +13,7 @@ public class FireFoxBrowser extends BaseBrowser {
 
     FireFoxBrowser() {
         FirefoxOptions options = setupFireFoxOptions();
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
         webDriver = new FirefoxDriver(options);
     }
 
@@ -27,16 +27,7 @@ public class FireFoxBrowser extends BaseBrowser {
 
         options.setPageLoadStrategy(PageLoadStrategy.NONE);
 
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("disable-infobars");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--allow-file-access-from-files");
-        options.addArguments("--allow-running-insecure-content");
-        options.addArguments("--allow-cross-origin-auth-prompt");
-        options.addArguments("--allow-file-access");
-        options.addArguments("--ignore-certificate-errors");
-        options.addArguments("--test-type");
 
         options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 
