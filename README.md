@@ -7,8 +7,7 @@ Open \TestGit\src\main\resources\configs folder and duplicate "blank.properties"
 to \TestGit\src\main\resources  and rename it to "config.properties"
 
 Open "config.properties" file and write your user login and password for git login
-#user example  login:password:(user = test@gmail.com:321111)
-
+#user example  login:password
 Open \TestGit in terminal 
 
 # **commad for run mvn clean test**
