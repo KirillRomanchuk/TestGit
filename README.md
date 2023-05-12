@@ -1,7 +1,9 @@
 Hi
 For running this test you need:
 install jre or jdk to your computer
+install maven
 download this git repository
+and use maven for download all needed dependencies
 
 Open \TestGit\src\main\resources\configs folder and duplicate "blank.properties"
 to \TestGit\src\main\resources  and rename it to "config.properties"
