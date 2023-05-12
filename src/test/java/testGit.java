@@ -5,12 +5,15 @@ import org.testGit.components.FileComponent;
 import org.testGit.components.Header;
 import org.testGit.components.SearchResultComponent;
 import org.testGit.pages.*;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
+import java.util.Properties;
 
 import static org.testGit.core.config.Config.gitUserName;
 import static org.testGit.core.config.Config.repositoryName;
@@ -47,20 +50,38 @@ public class testGit extends Hooks {
         site.projectPage().waitPageIsOpened(15);
     }
 
+    @Parameters({"fileName"})
     @Test(priority = 4)
-    public void openPomXml() {
+    public void openPomXml(String fileName) {
         ProjectPage projectPage = site.projectPage();
         LinkedHashMap<String, FileComponent> filesMap = projectPage.filesMap();
 
-        String fileName = "pom.xml";
         filesMap.get(fileName).fileLink().click();
+        site.filePage(fileName).waitPageIsOpened(15);
     }
 
+    @Parameters({"fileName"})
     @Test(priority = 5)
-    public void readFile() throws XmlPullParserException, IOException {
-        FilePage filePage = site.filePage("pom.xml");
+    public void readFile(String fileName) throws XmlPullParserException, IOException {
+        FilePage filePage = site.filePage(fileName);
         String fileText = filePage.fileText().getText();
         MavenXpp3Reader reader = new MavenXpp3Reader();
         Model model = reader.read(new ByteArrayInputStream(fileText.getBytes(StandardCharsets.UTF_8)));
+        Properties prop = model.getProperties();
+        prop.forEach((key, value) -> System.out.println(""
+                .concat(key.toString())
+                .concat(" ")
+                .concat(value.toString())));
+        prop.forEach((key, value) -> logger.info(""
+                .concat(key.toString())
+                .concat(" ")
+                .concat(value.toString())));
+
+        String testNgVersionInPom = prop.entrySet()
+                .stream()
+                .filter(m -> m.getKey().toString().contains("testng"))
+                .findFirst().get().getValue().toString();
+
+        Assert.assertEquals(testNgVersionInPom, "7.4.0");
     }
 }

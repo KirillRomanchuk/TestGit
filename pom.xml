@@ -16,10 +16,11 @@
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <owner.version>1.0.12</owner.version>
         <selenium-java.version>3.141.59</selenium-java.version>
-        <testng.version>7.7.0</testng.version>
+        <testng.version>7.4.0</testng.version>
         <lombok.version>1.18.12</lombok.version>
         <log4j.version>2.17.1</log4j.version>
         <maven-model.version>3.8.6</maven-model.version>
+        <maven-surefire.version>3.0.0-M5</maven-surefire.version>
     </properties>
 
     <dependencies>
@@ -71,17 +72,22 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${maven.compiler.target}</source>
-                    <target>${maven.compiler.source}</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire.version}</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>
+                                src\test\resources\testng.xml
+                            </suiteXmlFile>
+                        </suiteXmlFiles>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>
